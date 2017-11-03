@@ -45,14 +45,14 @@ function inicializaCronometro(){
 	var tempoRestante = $("#tempo-digitacao").text();
 	
 	campo.one("focus", function(){
-		$("#botao-reiniciar").attr("disabled", true);
+		$("#botao-reiniciar").attr("disabled", true); // tira o bug, evitando que o usuário possa clicar no botao iniciar o jogo.
 		var cronometroID = setInterval(function(){
 			tempoRestante--;
 			$("#tempo-digitacao").text(tempoRestante);
 			if(tempoRestante < 1){
 				campo.attr("disabled", true);
 				clearInterval(cronometroID);
-				$("#botao-reiniciar").attr("disabled", false);
+				$("#botao-reiniciar").attr("disabled", false); //habilita novamente o botao.
 			}
 		}, 1000);
 	});	
