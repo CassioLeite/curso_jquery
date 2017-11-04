@@ -1,6 +1,7 @@
 .campo-digitacao{
 	font-size: 20px;
 	height: 130px;
+	border: 3px solid black;
 }
 
 .frase{
@@ -9,4 +10,12 @@
 
 .campo-desativado{
 	background-color: lightgray;
+}
+
+.borda-verde{
+	border: 3px solid green;
+}
+
+.borda-vermelha{
+	border: 3px solid red;
 }
