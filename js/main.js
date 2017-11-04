@@ -51,15 +51,19 @@ function inicializaCronometro(){
 			tempoRestante--;
 			$("#tempo-digitacao").text(tempoRestante);
 			if(tempoRestante < 1){
-				campo.attr("disabled", true);
 				clearInterval(cronometroID);
-				campo.addClass("campo-desativado"); // poderia usar aqui o toggleClass(), ele verifica se o elemento tem a classe, se ele tem a classe ele remove ela, se ele não tem ele adiciona
-				$("#botao-reiniciar").attr("disabled", false); //habilita novamente o botao.
+				finalizaJogo();
 			}
 		}, 1000);
 	});	
 }
 
+function finalizaJogo(){
+	campo.attr("disabled", true);
+	campo.addClass("campo-desativado"); // poderia usar aqui o toggleClass(), ele verifica se o elemento tem a classe, se ele tem a classe ele remove ela, se ele não tem ele adiciona
+	$("#botao-reiniciar").attr("disabled", false); //habilita novamente o botao.
+	inserePlacar();
+}
 
 function inicializaMarcadores(){
 	var frase = $(".frase").text();
@@ -75,6 +79,40 @@ function inicializaMarcadores(){
 			campo.removeClass("borda-verde");
 		}
 	});	
+}
+
+
+function inserePlacar(){
+	var corpoTabela = $(".placar").find("tbody");
+	var usuario = "Douglas";
+	var numPalavras = $("#contador-palavras").text();
+	var linha = novaLinha(usuario, numPalavras);
+
+	linha.find(".botao-remover").click(removeLinha);
+	corpoTabela.prepend(linha);
+}
+
+function novaLinha(usuario, palavras){
+	var linha = $("<tr>");
+	var colunaUsuario = $("<td>").text(usuario);
+	var colunaPalavras = $("<td>").text(palavras);
+	var colunaRemover = $("<td>");
+	var link = $("<a>").addClass("botao-remover").attr("href", "#");
+	var icone = $("<i>").addClass("small").addClass("material-icons").text("delete");
+
+	link.append(icone);
+	colunaRemover.append(link);
+	linha.append(colunaUsuario);
+	linha.append(colunaPalavras);
+	linha.append(colunaRemover);
+
+	return linha;
+}
+
+
+function removeLinha(){
+	event.preventDefault();
+	$(this).parent().parent().remove();
 }
 
 
